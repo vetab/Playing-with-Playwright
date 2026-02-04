@@ -3,7 +3,7 @@ from tests.pages.login import LoginPage
 from tests.pages.inventory import InventoryPage
 import pytest
 
-scenarios('../features/inventory.feature')
+scenarios('../inventory.feature')
 
 @given('I am on the SauceDemo login page')
 def go_to_login_page(page):
