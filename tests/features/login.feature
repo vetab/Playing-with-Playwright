@@ -1,4 +1,8 @@
-Feature: Login
+Feature: SauceDemo User Authentication
+
+  As a user
+  I want to log in to the SauceDemo application
+  So that I can access my account and view products
 
   Verify login error messages and successful login flow using a Scenario Outline.
 
