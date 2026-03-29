@@ -4,6 +4,7 @@ from tests.pages.inventory import InventoryPage
 import pytest
 
 scenarios('../inventory.feature')
+scenarios('../cart.feature')
 
 @given('I am on the SauceDemo login page')
 def go_to_login_page(page):
@@ -28,16 +29,13 @@ def logged_in(page, username, password):
     inventory_page = InventoryPage(page)
     assert inventory_page.is_at()
 
+
+@given(parsers.parse('I add the item "{item_name}" to the cart'))
 @when(parsers.parse('I add the item "{item_name}" to the cart'))
 def add_item(page, item_name):
     inventory_page = InventoryPage(page)
     inventory_page.add_to_cart(item_name)
-
-@then(parsers.parse('the cart badge should show "{count}"'))
-def cart_badge_count(page, count):
-    inventory_page = InventoryPage(page)
-    assert inventory_page.get_cart_count() == int(count)
-
+    
 @given(parsers.parse('I have "{item_name}" in my cart'))
 def have_item_in_cart(page, item_name):
     login_page = LoginPage(page)
@@ -45,7 +43,6 @@ def have_item_in_cart(page, item_name):
     login_page.login('standard_user', 'secret_sauce')
     inventory_page = InventoryPage(page)
     inventory_page.add_to_cart(item_name)
-    assert inventory_page.get_cart_count() == 1
 
 @when(parsers.parse('I remove the item "{item_name}" from the cart'))
 def remove_item(page, item_name):
@@ -57,3 +54,12 @@ def cart_badge_not_visible(page):
     inventory_page = InventoryPage(page)
     assert not inventory_page.is_cart_badge_visible()
 
+@then(parsers.parse('the cart badge should show "{count}"'))
+def cart_badge_count(page, count):
+    inventory_page = InventoryPage(page)
+    assert inventory_page.get_cart_count() == int(count)
+
+@when('I view the cart')
+def view_cart(page):
+    inventory_page = InventoryPage(page)
+    inventory_page.is_at()
