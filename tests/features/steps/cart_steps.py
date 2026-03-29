@@ -33,6 +33,11 @@ def cart_should_be_empty(page):
     page.wait_for_timeout(500)  # Wait for the cart to update after removal
     assert cart_page.is_empty()
 
+@then('the cart should not be empty')
+def cart_should_not_be_empty(page):
+    cart_page = CartPage(page)
+    assert not cart_page.is_empty(), "Cart should contain items but is empty"
+
 @when(parsers.parse('I click the "{button_text}" button'))
 def click_cart_button(page, button_text):
     cart_page = CartPage(page)
