@@ -2,11 +2,19 @@ import os
 import pytest
 from pytest_bdd import given, when, then, parsers
 from playwright.sync_api import expect
+from dotenv import load_dotenv
 
 from tests.pages.login import LoginPage
 from tests.pages.inventory import InventoryPage
 
-ROOT_URL = os.getenv('ROOT_URL')
+# Load environment variables from .env file if it exists
+load_dotenv()
+
+# Get environment variables with fallback defaults
+ROOT_URL = os.getenv('ROOT_URL', 'https://www.saucedemo.com')
+STANDARD_USER = os.getenv('STANDARD_USER', 'standard_user')
+LOCKED_OUT_USER = os.getenv('LOCKED_OUT_USER', 'locked_out_user')
+PASSWORD = os.getenv('PASSWORD', 'secret_sauce')
 
 
 @pytest.fixture
