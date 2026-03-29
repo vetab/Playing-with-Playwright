@@ -13,7 +13,7 @@ def login_page(playwright):
     This fixture mirrors the existing tests' pattern so steps can reuse
     the same interactions and teardown behavior.
     """
-    from src.pages.login import LoginPage
+    from tests.pages.login import LoginPage
 
     browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
