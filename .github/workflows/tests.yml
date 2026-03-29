@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Run Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 45
 
     strategy:
@@ -26,16 +26,45 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
 
-      - name: Install dependencies
+      - name: Install system dependencies for Playwright
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            fonts-liberation \
+            libappindicator1 \
+            libappindicator3-1 \
+            libatk-bridge2.0-0 \
+            libatspi2.0-0 \
+            libcups2 \
+            libgbm1 \
+            libgtk-3-0 \
+            libpango-1.0-0 \
+            libpangoft2-1.0-0 \
+            libx11-6 \
+            libx11-xcb1 \
+            libxcb1 \
+            libxcomposite1 \
+            libxcursor1 \
+            libxdamage1 \
+            libxdmcp6 \
+            libxext6 \
+            libxfixes3 \
+            libxfont1 \
+            libxinerama1 \
+            libxrandr2 \
+            libxrender1 \
+            libxss1 \
+            libxtst6 \
+            xdg-utils
+
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r tests/requirements.txt
 
-      - name: Install Playwright browsers and system dependencies
+      - name: Install Playwright browsers
         run: |
-          playwright install --with-deps chromium
-        env:
-          PLAYWRIGHT_DOWNLOAD_HOST: https://playwright.azureedge.net
+          python -m playwright install chromium
 
       - name: Run tests with pytest
         run: |
