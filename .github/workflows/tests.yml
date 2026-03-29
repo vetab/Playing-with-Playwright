@@ -10,7 +10,7 @@ jobs:
   test:
     name: Run Tests
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
 
     strategy:
       matrix:
@@ -24,14 +24,12 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+          cache: 'pip'
 
-      - name: Cache pip dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgconf-2-4 libgbm1
 
       - name: Install dependencies
         run: |
@@ -39,7 +37,9 @@ jobs:
           pip install -r tests/requirements.txt
 
       - name: Install Playwright browsers
-        run: playwright install --with-deps
+        run: |
+          playwright install chromium --with-deps
+          playwright install-deps chromium
 
       - name: Run tests with pytest
         run: |
