@@ -43,15 +43,15 @@ def i_should_see(login_page, inventory_page, expected):
 def _resolve_username(name: str) -> str:
     """Map placeholder names to environment values where appropriate."""
     if name == 'standard_user':
-        return os.getenv('STANDARD_USER')
+        return os.getenv('STANDARD_USER', 'standard_user')
     if name == 'locked_out_user':
-        return os.getenv('LOCKED_OUT_USER')
+        return os.getenv('LOCKED_OUT_USER', 'locked_out_user')
     return name
 
 
 def _resolve_password(name: str) -> str:
     if name == 'password':
-        return os.getenv('PASSWORD')
+        return os.getenv('PASSWORD', 'secret_sauce')
     return name
 
 
