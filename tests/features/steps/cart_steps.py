@@ -4,7 +4,7 @@ from tests.pages.inventory import InventoryPage
 from tests.pages.cart import CartPage
 import pytest
 
-scenarios('../cart.feature')
+scenarios('../checkout.feature')
 
 
 @when('I view the cart')

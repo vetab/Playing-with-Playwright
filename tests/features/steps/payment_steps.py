@@ -5,7 +5,7 @@ from tests.pages.cart import CartPage
 from tests.pages.payment import PaymentPage
 import pytest
 
-scenarios('../payment.feature')
+scenarios('../checkout.feature')
 
 
 @then('the order total should be displayed')

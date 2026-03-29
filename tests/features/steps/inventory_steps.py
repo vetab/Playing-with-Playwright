@@ -4,7 +4,6 @@ from tests.pages.inventory import InventoryPage
 import pytest
 
 scenarios('../inventory.feature')
-scenarios('../cart.feature')
 
 @given('I am on the SauceDemo login page')
 def go_to_login_page(page):
