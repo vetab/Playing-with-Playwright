@@ -1,14 +1,22 @@
+import os
 from pytest_bdd import scenarios, given, when, then, parsers
 from tests.pages.login import LoginPage
 from tests.pages.inventory import InventoryPage
 import pytest
+from dotenv import load_dotenv
+
+load_dotenv()
+
+ROOT_URL = os.getenv('ROOT_URL', 'https://www.saucedemo.com')
+STANDARD_USER = os.getenv('STANDARD_USER', 'standard_user')
+PASSWORD = os.getenv('PASSWORD', 'secret_sauce')
 
 scenarios('../inventory.feature')
 
 @given('I am on the SauceDemo login page')
 def go_to_login_page(page):
     login_page = LoginPage(page)
-    login_page.navigate("https://www.saucedemo.com/")
+    login_page.navigate(ROOT_URL)
 
 @when(parsers.parse('I login with username "{username}" and password "{password}"'))
 def login(page, username, password):
@@ -23,7 +31,7 @@ def check_inventory_page(page):
 @given(parsers.parse('I am logged in as "{username}" with password "{password}"'))
 def logged_in(page, username, password):
     login_page = LoginPage(page)
-    login_page.navigate("https://www.saucedemo.com/")
+    login_page.navigate(ROOT_URL)
     login_page.login(username, password)
     inventory_page = InventoryPage(page)
     assert inventory_page.is_at()
@@ -38,8 +46,8 @@ def add_item(page, item_name):
 @given(parsers.parse('I have "{item_name}" in my cart'))
 def have_item_in_cart(page, item_name):
     login_page = LoginPage(page)
-    login_page.navigate("https://www.saucedemo.com/")
-    login_page.login('standard_user', 'secret_sauce')
+    login_page.navigate(ROOT_URL)
+    login_page.login(STANDARD_USER, PASSWORD)
     inventory_page = InventoryPage(page)
     inventory_page.add_to_cart(item_name)
 

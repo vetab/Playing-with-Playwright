@@ -2,11 +2,19 @@ import os
 import pytest
 from pytest_bdd import given, when, then, parsers
 from playwright.sync_api import expect
+from dotenv import load_dotenv
 
 from tests.pages.login import LoginPage
 from tests.pages.inventory import InventoryPage
 
-ROOT_URL = os.getenv('ROOT_URL')
+# Load environment variables from .env file if it exists
+load_dotenv()
+
+# Get environment variables with fallback defaults
+ROOT_URL = os.getenv('ROOT_URL', 'https://www.saucedemo.com')
+STANDARD_USER = os.getenv('STANDARD_USER', 'standard_user')
+LOCKED_OUT_USER = os.getenv('LOCKED_OUT_USER', 'locked_out_user')
+PASSWORD = os.getenv('PASSWORD', 'secret_sauce')
 
 
 @pytest.fixture
@@ -35,15 +43,15 @@ def i_should_see(login_page, inventory_page, expected):
 def _resolve_username(name: str) -> str:
     """Map placeholder names to environment values where appropriate."""
     if name == 'standard_user':
-        return os.getenv('STANDARD_USER')
+        return os.getenv('STANDARD_USER', 'standard_user')
     if name == 'locked_out_user':
-        return os.getenv('LOCKED_OUT_USER')
+        return os.getenv('LOCKED_OUT_USER', 'locked_out_user')
     return name
 
 
 def _resolve_password(name: str) -> str:
     if name == 'password':
-        return os.getenv('PASSWORD')
+        return os.getenv('PASSWORD', 'secret_sauce')
     return name
 
 
