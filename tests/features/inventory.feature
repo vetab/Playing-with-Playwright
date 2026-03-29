@@ -1,4 +1,4 @@
-Feature: SauceDemo Shopping Cart
+Feature: SauceDemo Inventory
 
   Scenario: Successful login and view inventory
     Given I am on the SauceDemo login page
