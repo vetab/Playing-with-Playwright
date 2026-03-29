@@ -46,10 +46,8 @@ jobs:
             libxcomposite1 \
             libxcursor1 \
             libxdamage1 \
-            libxdmcp6 \
             libxext6 \
             libxfixes3 \
-            libxfont1 \
             libxinerama1 \
             libxrandr2 \
             libxrender1 \
