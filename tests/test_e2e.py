@@ -8,5 +8,4 @@ from tests.features.steps.payment_steps import *
 
 scenarios('features/login.feature')
 scenarios('features/inventory.feature')
-scenarios('features/cart.feature')
-scenarios('features/payment.feature')
+scenarios('features/checkout.feature')
