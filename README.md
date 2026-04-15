@@ -57,8 +57,8 @@ tests/
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/vetab/Playwright-with-BDD.git
-   cd Playwright-with-BDD
+   git clone https://github.com/vetab/SauceDemo-E2E-Test-Automation.git
+   cd SauceDemo-E2E-Test-Automation
    ```
 
 2. **Create and activate a virtual environment:**
